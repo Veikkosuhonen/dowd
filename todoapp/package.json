@@ -1,15 +1,21 @@
 {
-  "name": "todoapp",
-  "version": "1.0.0",
-  "main": "main.js",
-  "type": "module",
-  "scripts": {
-    "start": "node main.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^5.1.0"
-  }
+    "name": "todoapp",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "workspaces": [
+        "src/server",
+        "src/client"
+    ],
+    "scripts": {
+        "start:prod": "NODE_ENV=production npm start --workspace=server",
+        "start:dev": "NODE_ENV=development concurrently \"cat package.json \" \"npm run start:dev:server\" \"npm run start:dev:client\"",
+        "start:dev:server": "npm run dev --workspace=server",
+        "start:dev:client": "npm run dev --workspace=client",
+        "build": "npm run build --workspace=client"
+    },
+    "proxy": "http://localhost:8000",
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
 }

@@ -16,3 +16,6 @@ spec:
         - name: todoapp
           image: todoapp:latest
           imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "4000"
