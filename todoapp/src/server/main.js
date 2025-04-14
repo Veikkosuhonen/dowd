@@ -2,8 +2,11 @@ import crypto from "node:crypto"
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from "express"
+import morgan from "morgan"
 
 const app = express()
+
+app.use(morgan('tiny'))
 
 const PORT = process.env.PORT || 8000
 
