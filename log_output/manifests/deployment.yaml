@@ -16,3 +16,6 @@ spec:
         - name: log-output
           image: log-output:latest
           imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "3000"
