@@ -1,6 +1,6 @@
 FROM node:23-alpine3.21
 
-WORKDIR /opt/app-root/src
+WORKDIR /usr/src/app
 
 COPY . .
 RUN npm ci

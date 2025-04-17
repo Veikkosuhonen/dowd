@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR /opt/app-root/src
+WORKDIR /usr/src/app
 
 COPY . .
 RUN npm ci
