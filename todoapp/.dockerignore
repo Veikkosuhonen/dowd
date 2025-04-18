@@ -1,0 +1,11 @@
+# Docker / Github Actions
+.github
+.dockerignore
+*Dockerfile
+docker-compose*.yml
+# Git
+.git
+.gitignore
+# Node
+node_modules
+*.log
