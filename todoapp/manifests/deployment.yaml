@@ -12,10 +12,17 @@ spec:
       labels:
         app: todoapp
     spec:
+      volumes:
+        - name: images
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: todoapp
           image: todoapp:latest
           imagePullPolicy: Never
+          volumeMounts: # Mount volume
+            - name: images
+              mountPath: /usr/src/app/images
           env:
             - name: PORT
               value: "3000"

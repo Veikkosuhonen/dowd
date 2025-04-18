@@ -9,3 +9,5 @@ docker-compose*.yml
 # Node
 node_modules
 *.log
+
+images

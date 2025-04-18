@@ -9,7 +9,7 @@
     ],
     "scripts": {
         "start:prod": "NODE_ENV=production npm start --workspace=server",
-        "start:dev": "NODE_ENV=development concurrently \"cat package.json \" \"npm run start:dev:server\" \"npm run start:dev:client\"",
+        "start:dev": "NODE_ENV=development concurrently \"npm run start:dev:server\" \"npm run start:dev:client\"",
         "start:dev:server": "npm run dev --workspace=server",
         "start:dev:client": "npm run dev --workspace=client",
         "build": "npm run build --workspace=client"
