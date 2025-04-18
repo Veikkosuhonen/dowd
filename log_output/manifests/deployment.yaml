@@ -14,10 +14,11 @@ spec:
     spec:
       volumes:
         - name: shared-logs
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: pingpong-claim
       containers:
-        - name: reader
-          image: log-reader:latest
+        - name: log-output
+          image: log-output:latest
           imagePullPolicy: Never
           volumeMounts: # Mount volume
             - name: shared-logs
@@ -25,10 +26,3 @@ spec:
           env:
             - name: PORT
               value: "3000"
-
-        - name: writer
-          image: log-writer:latest
-          imagePullPolicy: Never
-          volumeMounts: # Mount volume
-            - name: shared-logs
-              mountPath: /usr/src/app/files
