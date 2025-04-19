@@ -2,22 +2,22 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dowd-ingress
+  namespace: exercises
 spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /pingpong
         pathType: Prefix
         backend:
           service:
-            name: todoapp-svc
+            name: ping-pong-svc
             port:
               number: 2345
-      - path: /todos
+      - path: /log-output
         pathType: Prefix
         backend:
           service:
-            name: todo-backend-svc
+            name: log-output-svc
             port:
               number: 2345
-      
