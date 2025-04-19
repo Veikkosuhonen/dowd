@@ -1,8 +1,10 @@
 import express from "express"
-import fs from "node:fs"
 import crypto from "node:crypto"
+import axios from "axios"
 
 const PORT = process.env.PORT
+
+const PINGPONG_URL = process.env.PINGPONG_URL
 
 const app = express()
 
@@ -13,9 +15,13 @@ const getString = () => {
     return `${timestamp} ${hash}`
 }
 
-app.get('/log-output', (req, res) => {
+app.get('/log-output', async (req, res) => {
     const str = getString()
-    const pings = fs.readFileSync("files/pings", { encoding: "utf8" })
+
+    const pingPongRes = await axios.get(`${PINGPONG_URL}/pings`)
+    const pings = pingPongRes.data
+    console.log("PingPong response: " + pings)
+
     res.send(`${str}.\nPing / Pongs: ${pings}`)
 })
 
