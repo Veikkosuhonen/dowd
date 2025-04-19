@@ -1,10 +1,21 @@
 import styles from './App.module.css';
 import { For, createResource, createSignal } from 'solid-js';
 
-const [todos, setTodos] = createSignal([
-  { id: 1, text: 'Learn SolidJS', completed: false },
-  { id: 2, text: 'Build a Todo App', completed: false },
-]);
+const [todos, { refetch }] = createResource(async () => {
+  const res = await fetch('/todos');
+  return res.json();
+})
+
+const postTodo = async (todo) => {
+  const res = await fetch('/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(todo),
+  });
+  return res.json();
+}
 
 function App() {
   const [hash] = createResource(async () => {
@@ -29,16 +40,17 @@ function App() {
             {(todo) => (
               <li>
                 <input type="checkbox" checked={todo.completed} />
-                {todo.text}
+                {todo.title}
               </li>
             )}
           </For>
         </ul>
         <div>
           <input type="text" value={newTodo()} onInput={(e) => setNewTodo(e.target.value)} maxLength={140}/>
-          <button onClick={() => {
-            const newTodos = [...todos(), { id: Date.now(), text: newTodo(), completed: false }];
-            setTodos(newTodos);
+          <button onClick={async () => {
+            const newTodoBody = { id: Date.now(), title: newTodo(), completed: false };
+            await postTodo(newTodoBody)
+            refetch();
             setNewTodo('');
           }}>
             Add
