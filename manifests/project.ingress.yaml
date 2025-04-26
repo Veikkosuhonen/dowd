@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dowd-ingress
+  namespace: project
 spec:
   rules:
   - http:
