@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-output-config
+  labels:
+    app: log-output
+  namespace: exercises
+data:
+  message: "Hello, World!"
+  information.txt: |
+    This is a multiline string
+    that will be stored in the config map.

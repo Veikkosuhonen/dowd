@@ -1,6 +1,7 @@
 import express from "express"
 import crypto from "node:crypto"
 import axios from "axios"
+import fs from "fs"
 
 const PORT = process.env.PORT
 
@@ -12,7 +13,10 @@ const hash = crypto.randomUUID()
 
 const getString = () => {
     const timestamp = new Date().toISOString()
-    return `${timestamp} ${hash}`
+    const informationFileContent = fs.readFileSync('/config/information.txt', 'utf8')
+    const informationFile = `file content: ${informationFileContent}`
+    const envMessage = `env variable: MESSAGE=${process.env.MESSAGE}`
+    return `${informationFile}\n${envMessage}\n${timestamp}\n${hash}`
 }
 
 app.get('/log-output', async (req, res) => {
