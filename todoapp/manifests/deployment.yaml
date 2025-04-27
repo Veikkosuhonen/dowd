@@ -27,3 +27,7 @@ spec:
           env:
             - name: PORT
               value: "3000"
+            - name: IMAGE_TIME_LIMIT
+              value: "60000" # 60 seconds
+            - name: IMAGE_URL
+              value: "https://picsum.photos/200/300"

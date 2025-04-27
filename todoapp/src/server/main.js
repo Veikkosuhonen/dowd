@@ -11,7 +11,7 @@ const app = express()
 
 app.use(morgan('tiny'))
 
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT
 
 if (!PORT) {
     console.error("Warning: PORT not set")
@@ -38,7 +38,7 @@ if (!fs.existsSync(imagesFolder)) {
 const downloadAndSendImage = (res) => {
     // Download image from https://picsum.photos/
     // and save it to the images folder
-    const imageUrl = 'https://picsum.photos/200/300'
+    const imageUrl = process.env.IMAGE_URL
     const imageName = Date.now() + '.jpg'
     const imagePath = path.join(imagesFolder, imageName)
 
@@ -81,12 +81,12 @@ router.get('/image', (req, res) => {
     // Get the first image
     const image = images[0]
 
-    // Check if the image is older than 10 minutes
+    // Check if the image is older than 1 minute
     const stats = fs.statSync(path.join(imagesFolder, image))
     const now = new Date()
-    const timelimit = 10 * 60 * 1000
+    const timelimit = parseInt(process.env.IMAGE_TIME_LIMIT)
     if (now - stats.mtime > timelimit) {
-        console.log("Image is older than 10 minutes, downloading a new one...")
+        console.log("Image is older than 1 minute, downloading a new one...")
         // Delete the old image
         fs.unlinkSync(path.join(imagesFolder, image))
         // Download a new image
